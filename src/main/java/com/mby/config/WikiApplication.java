@@ -1,6 +1,7 @@
 package com.mby.config;
 
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
 import org.springframework.context.annotation.ComponentScan;
@@ -9,7 +10,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 /*@ComponentScan({"com.mby","com.controller"})*///扫描以下全部包，交给Spring管理
 @ComponentScan({"com.mby"})
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages="com.mby.controller")
+@MapperScan("com.mby.mapper")//让springboot知道哪里是持久层=SQL
 public class WikiApplication {
 
     private  static final Logger LOG= LoggerFactory.getLogger(WikiApplication.class);
