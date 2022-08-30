@@ -1,6 +1,8 @@
 package com.mby.controller;
 
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 //注解Controller返回一个界面
 @RestController//返回字符串数据
@@ -20,5 +22,10 @@ public class TestController {
     @GetMapping("hello")//路径http://127.0.0.1:8080/hello
     public String hello(){
         return  "Hello world";
+    }
+
+    @PostMapping("hello/post")//路径http://127.0.0.1:8080/hello
+    public String helloPost(String name){
+        return  "Hello world!Post,"+name;
     }
 }
