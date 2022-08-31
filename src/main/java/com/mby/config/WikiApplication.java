@@ -10,7 +10,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 /*@ComponentScan({"com.mby","com.controller"})*///扫描以下全部包，交给Spring管理
 @ComponentScan({"com.mby"})
-@SpringBootApplication(scanBasePackages="com.mby.controller")
+@SpringBootApplication
 @MapperScan("com.mby.mapper")//让springboot知道哪里是持久层=SQL
 public class WikiApplication {
 
