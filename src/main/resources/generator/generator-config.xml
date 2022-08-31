@@ -40,8 +40,8 @@
                              targetPackage="com.mby.mapper"
                              type="XMLMAPPER"/>
 
-        <table tableName="demo" domainObjectName="Demo"/><!--自动生成表DEMO的代码，一次只能一个表-->
-        <!--<table tableName="ebook"/>-->
+        <!--<table tableName="demo" domainObjectName="Demo"/>--><!--自动生成表DEMO的代码，一次只能一个表-->
+        <table tableName="ebook"/>
         <!--<table tableName="category"/>-->
         <!--<table tableName="doc"/>-->
         <!--<table tableName="content"/>-->
