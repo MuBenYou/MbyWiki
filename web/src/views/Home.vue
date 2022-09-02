@@ -48,22 +48,34 @@
    <a-layout-content
        :style="{ background: '#fff', padding: '24px', margin: 0, minHeight: '280px' }"
    >
-     Content
+     <pre>{{ebooks}}</pre>
+
    </a-layout-content>
   </a-layout>
 
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent,onMounted, ref,reactive } from 'vue';
 import axios from 'axios';
 export default defineComponent({
   name: 'Home',
   setup(){
     console.log("setup");
-    axios.get("http://localhost:8880/ebook/list?name=spring").then((response)=>{
-      console.log(response);
+    const ebooks =ref();
+
+
+    onMounted(()=>{
+      console.log("onMounted");
+      axios.get("http://localhost:8880/ebook/list?name=spring").then((response)=>{
+        const date = response.data;//后端的数据拿出来
+        ebooks.value=date.content;
+        console.log(response);
+      });
     })
+    return{
+      ebooks,
+    }
   }
 
 });
