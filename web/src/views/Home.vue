@@ -108,7 +108,8 @@ export default defineComponent({
       axios.get( "/ebook/list").then((response)=>{
         const date = response.data;//后端的数据拿出来
         ebooks.value=date.content;
-        console.log(response);
+
+
       });
     })
 
