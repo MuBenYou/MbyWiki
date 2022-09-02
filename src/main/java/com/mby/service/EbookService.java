@@ -7,6 +7,7 @@ import com.mby.req.EbookReq;
 import com.mby.resp.EbookResp;
 import com.mby.util.CopyUtil;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -19,7 +20,10 @@ public class EbookService {
     public List<EbookResp> list(EbookReq req) {
         EbookExample ebookExample = new EbookExample();//domain下的example mybatis给我们自动生成了很多方法New 处理 才能调用他的方法
         EbookExample.Criteria criteria=ebookExample.createCriteria();//Criteria相当于where条件， 把criteria创建出来
-        criteria.andNameLike("%"+req.getName()+"%");
+        if (!ObjectUtils.isEmpty(req.getName())){//不为空 才执行模糊查询 这样下面的查询selectBy里面是没有where条件的所有执行的selectByExample全部信息
+
+            criteria.andNameLike("%"+req.getName()+"%");
+        }
 
         List<Ebook> ebooklist=ebookMapper.selectByExample(ebookExample);//自动生成代码，selectByExample()查询所有字段,selectByExample=基本查询语句，括号里面是查询条件
         //转换类型 ->list<Ebook> ->List<EbookResp>

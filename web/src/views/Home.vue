@@ -48,7 +48,7 @@
    <a-layout-content
        :style="{ background: '#fff', padding: '24px', margin: 0, minHeight: '280px' }"
    >
-     <a-list item-layout="vertical" size="large" :grid ="{gutter:20,column:3}" :data-source="ebooks">
+     <a-list item-layout="vertical" size="large" :grid ="{gutter:20 , column: 3}" :data-source="ebooks">
 
        <template #renderItem="{ item }">
          <a-list-item key="item.name">
@@ -73,6 +73,7 @@
   </a-layout>
 
 </template>
+
 
 <script lang="ts">
 import { defineComponent,onMounted, ref, } from 'vue';
@@ -104,7 +105,7 @@ export default defineComponent({
 
     onMounted(()=>{
       console.log("onMounted");
-      axios.get("http://localhost:8880/ebook/list?name=spring").then((response)=>{
+      axios.get("http://localhost:8880/ebook/list").then((response)=>{
         const date = response.data;//后端的数据拿出来
         ebooks.value=date.content;
         console.log(response);
@@ -130,3 +131,12 @@ export default defineComponent({
 
 });
 </script>
+<style scoped>
+.ant-avatar {
+  width: 50px;
+  height: 50px;
+  line-height: 50px;
+  border-radius: 8%;
+  margin: 5px 0;
+}
+</style>
