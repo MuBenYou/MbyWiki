@@ -20,8 +20,8 @@ public class EbookService {
     public List<EbookResp> list(EbookReq req) {
         EbookExample ebookExample = new EbookExample();//domain下的example mybatis给我们自动生成了很多方法New 处理 才能调用他的方法
         EbookExample.Criteria criteria=ebookExample.createCriteria();//Criteria相当于where条件， 把criteria创建出来
-        if (!ObjectUtils.isEmpty(req.getName())){//不为空 才执行模糊查询 这样下面的查询selectBy里面是没有where条件的所有执行的selectByExample全部信息
 
+        if (!ObjectUtils.isEmpty(req.getName())){//不为空 才执行模糊查询 这样下面的查询selectBy里面是没有where条件的所有执行的selectByExample全部信息
             criteria.andNameLike("%"+req.getName()+"%");
         }
 
@@ -36,8 +36,8 @@ public class EbookService {
         }*/
         //下面这句就是把上面注释的方法，封装起来用，封装类是CopyUtil
         //下面这句，列表复用
-       List<EbookResp> list = CopyUtil.copyList(ebooklist,EbookResp.class);
-        return  list;
+        List<EbookResp> list = CopyUtil.copyList(ebooklist,EbookResp.class);
+        return list;
     }
 
 }
