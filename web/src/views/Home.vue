@@ -91,25 +91,11 @@ export default defineComponent({
 
     const listData: any = [];
 
-    for (let i = 0; i < 23; i++) {
-      listData.push({
-        href: 'https://www.antdv.com/',
-        title: `ant design vue part ${i}`,
-        avatar: 'https://joeschmoe.io/api/v1/random',
-        description:
-            'Ant Design, a design language for background applications, is refined by Ant UED Team.',
-        content:
-            'We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.',
-      });
-    }
-
     onMounted(()=>{
       console.log("onMounted");
       axios.get( "/ebook/list").then((response)=>{
         const date = response.data;//后端的数据拿出来
         ebooks.value=date.content;
-
-
       });
     })
 
