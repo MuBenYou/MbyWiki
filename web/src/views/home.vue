@@ -93,9 +93,14 @@ export default defineComponent({
 
     onMounted(()=>{
       console.log("onMounted");
-      axios.get( "/ebook/list").then((response)=>{
+      axios.get( "/ebook/list",{
+        params:{
+          page:1,
+          size:10000
+        }
+      }).then((response)=>{
         const date = response.data;//后端的数据拿出来
-        ebooks.value=date.content;
+        ebooks.value=date.content.list;
       });
     })
 

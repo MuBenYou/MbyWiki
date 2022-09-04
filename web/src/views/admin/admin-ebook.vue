@@ -81,14 +81,20 @@ export default defineComponent({
      **/
     const handleQuery = (params: any) => {
       loading.value = true;
-      axios.get("/ebook/list",params).then((response) => {
+      axios.get("/ebook/list",{
+        params:{//params自带的
+          page:params.page,//params自己定义的
+          size:params.size
+        }
+      }).then((response) => {
         loading.value = false;
         const data = response.data;
         console.log(data);
-        ebooks.value = data.content;
+        ebooks.value = data.content.list;
 
         //重置分页按钮
         pagination.value.current = params.page;//点第二页的按钮的时候前端 不会刷新 还是第一页的地方 实际我们以及到第二页了
+        pagination.value.total = data.content.total;
       });
     };
     /**
@@ -103,7 +109,11 @@ export default defineComponent({
     };
 
     onMounted(() => {
-      handleQuery({});
+      handleQuery({
+        page:1,
+        size: pagination.value.pageSize,
+      });
+
     });
 
     return {
