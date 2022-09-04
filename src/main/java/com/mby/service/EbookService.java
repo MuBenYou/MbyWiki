@@ -7,6 +7,7 @@ import com.mby.domain.EbookExample;
 import com.mby.mapper.EbookMapper;
 import com.mby.req.EbookReq;
 import com.mby.resp.EbookResp;
+import com.mby.resp.PageResp;
 import com.mby.util.CopyUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,7 +24,7 @@ public class EbookService {
     @Resource
     private EbookMapper ebookMapper;
 
-    public List<EbookResp> list(EbookReq req) {
+    public PageResp<EbookResp> list(EbookReq req) {
 
         EbookExample ebookExample = new EbookExample();//domain下的example mybatis给我们自动生成了很多方法New 处理 才能调用他的方法
         EbookExample.Criteria criteria=ebookExample.createCriteria();//Criteria相当于where条件， 把criteria创建出来
@@ -32,7 +33,7 @@ public class EbookService {
             criteria.andNameLike("%"+req.getName()+"%");
         }
         // List<Ebook> ebooklist=ebookMapper.selectByExample(ebookExample);还有这个语句,这句话只对第1个遇到的select起作用。
-        PageHelper.startPage(1,3);//后端分页，第几（1）页，拿三条
+        PageHelper.startPage(req.getPage(), req.getSize());//后端分页，第几（1）页，拿三条
         List<Ebook> ebooklist=ebookMapper.selectByExample(ebookExample);//自动生成代码，selectByExample()查询所有字段,selectByExample=基本查询语句，括号里面是查询条件
         //转换类型 ->list<Ebook> ->List<EbookResp>
 
@@ -48,10 +49,12 @@ public class EbookService {
             BeanUtils.copyProperties(ebook,ebookResp);//BeanUtils用于拷贝的方法，1.要拷贝哪个2.要拷贝到哪里去 用于将事件源的数据拷贝到目标源中
             respList.add(ebookResp);
         }*/
-        //下面这句就是把上面注释的方法，封装起来用，封装类是CopyUtil
-        //下面这句，列表复用
         List<EbookResp> list = CopyUtil.copyList(ebooklist,EbookResp.class);
-        return list;
+        PageResp<EbookResp> pageResp=new PageResp<>();
+        pageResp.setTotal(pageInfo.getTotal());
+        pageResp.setList(list);
+
+        return pageResp;
     }
 
 }
