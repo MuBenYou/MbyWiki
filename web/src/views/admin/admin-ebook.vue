@@ -17,7 +17,7 @@
         </template>
         <template v-slot:action="{ text, record }">
           <a-space size="small">
-            <a-button type="primary">
+            <a-button type="primary" @click="edit">
               编辑
             </a-button>
             <a-button type="primary">
@@ -28,6 +28,14 @@
       </a-table>
     </a-layout-content>
   </a-layout>
+  <a-modal
+      title="Title"
+      v-model:visible="modalVisible"
+      :confirm-loading="modalLoading"
+      @ok="handleModalOk"
+  >
+    <p>test效果</p>
+  </a-modal>
 </template>
 
 <script lang="ts">
@@ -86,7 +94,7 @@ export default defineComponent({
           page:params.page,//params自己定义的
           size:params.size
         }
-      }).then((response) => {
+      }).then((response) => {//.then(自己定义)指接口成功返回的数据,包含请求头,请求体,等信息;
         loading.value = false;
         const data = response.data;
         console.log(data);
@@ -107,6 +115,22 @@ export default defineComponent({
         size: pagination.pageSize
       });
     };
+    //表单
+    const modalVisible = ref(false);
+    const modalLoading = ref(false);
+    const handleModalOk = () =>{
+      modalLoading.value = true;
+      setTimeout(() => {
+        modalVisible.value = false;
+        modalLoading.value = false;
+      },2000);//2000毫秒
+    }
+
+    //编辑
+    const edit = () => {
+      modalVisible.value = true;
+
+    }
 
     onMounted(() => {
       handleQuery({
@@ -122,6 +146,12 @@ export default defineComponent({
       columns,
       loading,
       handleTableChange,
+
+      edit,
+      modalVisible,
+      modalLoading,
+      handleModalOk,
+
     }
   }
 });
