@@ -3,6 +3,11 @@
     <a-layout-content
         :style="{ background: '#fff', padding: '24px', margin: 0, minHeight: '80px'  }"
     >
+      <p>
+        <a-button type="primary" @click="add()" size="large">
+          新增
+        </a-button>
+      </p>
       <!--列,key id,数据ebook,分页,等待框,分页执行方法-->
       <a-table
           :columns="columns"
@@ -162,6 +167,12 @@ export default defineComponent({
       ebook.value = record
 
     }
+    //新增
+    const add = () => {
+      modalVisible.value = true;
+      ebook.value = {};
+
+    }
 
     onMounted(() => {
       handleQuery({
@@ -179,6 +190,7 @@ export default defineComponent({
       handleTableChange,
 
       edit,
+      add,
 
       ebook,
       modalVisible,
