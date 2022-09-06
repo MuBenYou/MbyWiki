@@ -1,6 +1,6 @@
-package com.mby.resp;
+package com.mby.req;
 
-public class EbookResp {
+public class EbookSaveReq {
     private Long id;
 
     private String name;

@@ -43,12 +43,10 @@
         <a-input v-model:value="ebook.name"/>
       </a-form-item>
       <a-form-item label="分类一">
-        <a-cascader
-            v-model:value="categoryIds"
-            :field-names="{ label: 'name', value: 'id', children: 'children' }"
-            :options="level1"
-
-        />
+        <a-input v-model:value="ebook.category1_id"/>
+      </a-form-item>
+      <a-form-item label="分类二">
+        <a-input v-model:value="ebook.category2_id"/>
       </a-form-item>
       <a-form-item label="描述">
         <a-input v-model:value="ebook.description" type="textarea"/>
@@ -140,11 +138,23 @@ export default defineComponent({
     const modalLoading = ref(false);
     const handleModalOk = () =>{
       modalLoading.value = true;
-      setTimeout(() => {
+    /*  setTimeout(() => {
         modalVisible.value = false;
         modalLoading.value = false;
-      },2000);//2000毫秒
-    }
+      },2000);//2000毫秒*/
+      axios.post("/ebook/save",ebook.value).then((response) =>{
+        const data =response.data;
+        if (data.success){
+          modalVisible.value=false;
+          modalLoading.value=false;
+          //重新加载列表
+          handleQuery({
+            page: pagination.value.current,
+            size: pagination.value.pageSize,
+          });
+        }
+        });
+    };
 
     //编辑
     const edit = (record:any) => {
